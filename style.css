@@ -148,6 +148,9 @@ a {
     margin-bottom: 3rem;
     position: relative;
     display: inline-block;
+    word-break: break-word;
+    /* Prevent long words like INITIALIZE_CONTACT from breaking layout */
+    hyphens: auto;
 }
 
 .section-title::after {
@@ -729,8 +732,34 @@ a {
         /* accomodate word wrap */
     }
 
+    .section-title {
+        font-size: 1.7rem;
+        /* Make titles dramatically smaller for narrow screens */
+        margin-bottom: 2rem;
+    }
+
     .section-title::after {
         width: 100px;
+    }
+
+    .container {
+        width: 95%;
+        /* Give a bit more breathing room on mobile */
+    }
+
+    .achievement-card {
+        padding: 1rem;
+        /* Smaller padding on phones to save space */
+    }
+
+    .achievement-tag {
+        font-size: 0.6rem;
+        letter-spacing: 1px;
+    }
+
+    .skill-badge {
+        font-size: 0.7rem;
+        padding: 0.5rem 0.8rem;
     }
 }
 
