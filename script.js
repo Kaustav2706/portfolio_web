@@ -125,4 +125,40 @@ document.addEventListener("DOMContentLoaded", function () {
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // --- EMAILJS CONTACT FORM ---
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default page refresh
+
+            // Change button text to show it's working
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Sending...";
+            submitBtn.disabled = true;
+
+            // These IDs from the previous steps
+            const serviceID = 'service_2f0e1zq';
+            const templateID = 'template_ee1x8dq';
+
+            // Send the form using EmailJS
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    submitBtn.textContent = 'Message Sent!';
+                    contactForm.reset();
+
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.textContent = originalText;
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }, (error) => {
+                    submitBtn.textContent = 'Error! Try Again.';
+                    submitBtn.disabled = false;
+                    console.log('FAILED...', error);
+                    alert("Something went wrong while sending the message. Check console for details.");
+                });
+        });
+    }
 });
